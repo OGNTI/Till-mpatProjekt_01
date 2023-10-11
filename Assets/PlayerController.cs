@@ -12,11 +12,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        float step = speed * Time.deltaTime;
+
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Camera.main.nearClipPlane;
         worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
 
-        float step = speed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, worldPosition, step);
+        
         // float moveX = Input.GetAxisRaw("Horizontal");
         // float moveY = Input.GetAxisRaw("Vertical");
 
@@ -24,6 +27,5 @@ public class PlayerController : MonoBehaviour
 
         // transform.Translate(movement);
 
-        transform.position = Vector2.MoveTowards(transform.position, worldPosition, step);
     }
 }
