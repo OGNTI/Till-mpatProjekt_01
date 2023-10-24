@@ -11,15 +11,17 @@ public class EnemyController : MonoBehaviour
     int currrentHealth;
 
     GameObject player;
+    PlayerController playerScript;
 
-    // [SerializeField] Slider healthBar;
-    // [SerializeField] GameObject HealthBarObject;
+    [SerializeField] Slider healthBar;
+    [SerializeField] GameObject healthBarObject;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerScript = player.GetComponent<PlayerController>();
         currrentHealth = maxHealth;
-        // HealthBarObject.SetActive(false);
+        healthBarObject.SetActive(false);
     }
 
     void Update()
@@ -27,8 +29,6 @@ public class EnemyController : MonoBehaviour
         float step = speed * Time.deltaTime;
 
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
-
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -37,22 +37,22 @@ public class EnemyController : MonoBehaviour
         {
             if (currrentHealth == maxHealth)
             {
-                // healthBar = gameObject.AddComponent<Slider>();
-                // HealthBarObject.SetActive(true);
+                healthBarObject.SetActive(true);
             }
-            currrentHealth -= 35;
-            // UpdateHealthBar();
+            currrentHealth -= 45;
+            UpdateHealthBar();
 
             if (currrentHealth <= 0)
             {
+                playerScript.kills++;
                 GameObject.Destroy(this.gameObject);
             }
         }
     }
 
-//     private void UpdateHealthBar()
-//     {
-//         healthBar.maxValue = maxHealth;
-//         healthBar.value = currrentHealth;
-//     }
+    private void UpdateHealthBar()
+    {
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currrentHealth;
+    }
 }

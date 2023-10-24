@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     Vector3 worldPosition;
 
+    public int kills = 0;
 
 
     void Update()
