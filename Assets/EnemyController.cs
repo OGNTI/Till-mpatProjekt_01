@@ -8,19 +8,21 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] float speed = 4;
     [SerializeField] int maxHealth = 100;
-    int currrentHealth;
+    int currentHealth;
 
-    GameObject player;
-    PlayerController playerScript;
+    [SerializeField] int xpValue = 1;
 
     [SerializeField] Slider healthBar;
     [SerializeField] GameObject healthBarObject;
+
+    GameObject player;
+    PlayerController playerScript;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        currrentHealth = maxHealth;
+        currentHealth = maxHealth;
         healthBarObject.SetActive(false);
     }
 
@@ -35,16 +37,17 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            if (currrentHealth == maxHealth)
+            if (currentHealth == maxHealth)
             {
                 healthBarObject.SetActive(true);
             }
-            currrentHealth -= 45;
+            currentHealth -= playerScript.Damage;
             UpdateHealthBar();
 
-            if (currrentHealth <= 0)
+            if (currentHealth <= 0)
             {
                 playerScript.kills++;
+                playerScript.currentXP += xpValue;
                 GameObject.Destroy(this.gameObject);
             }
         }
@@ -53,6 +56,6 @@ public class EnemyController : MonoBehaviour
     private void UpdateHealthBar()
     {
         healthBar.maxValue = maxHealth;
-        healthBar.value = currrentHealth;
+        healthBar.value = currentHealth;
     }
 }
