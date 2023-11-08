@@ -385,7 +385,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &1914826655550635720
 MonoBehaviour:
@@ -660,10 +660,9 @@ MonoBehaviour:
   speed: 5
   gunBarrelPos: {fileID: 59987503925658780}
   bulletPrefab: {fileID: 3960787440495397240, guid: cb6ed50ce547bcf44b907139b73436ff, type: 3}
-  skillScreen: {fileID: 0}
   healthBar: {fileID: 9155745856461043352}
   timeBetweenShots: 0.3
-  MaxHealth: 100
+  maxHealth: 100
   currentHealth: 0
   kills: 0
   level: 0

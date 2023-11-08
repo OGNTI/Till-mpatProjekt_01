@@ -20,13 +20,13 @@ public class PlayerController : MonoBehaviour
     public float timeBetweenShots = 1;
     float shotTimer;
 
-    public int maxHealth = 100;
-    public int currentHealth = 0;
+    public float maxHealth = 100;
+    public float currentHealth = 0;
 
     public int kills = 0;
     public int level = 0;
-    int requiredXP = 2;
-    public int currentXP = 0;
+    float requiredXP = 2;
+    public float currentXP = 0;
     public int Damage = 20;
 
     void Awake()
@@ -86,5 +86,19 @@ public class PlayerController : MonoBehaviour
     public void SkillIncreaseScreen(bool gae)
     {
         skillScreen.SetActive(gae);
+        if (gae == true)
+        {
+            PauseGame();
+        }
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 }

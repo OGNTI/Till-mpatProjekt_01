@@ -38,6 +38,7 @@ public class GeneralController : MonoBehaviour
     {
         playerScript.Damage += 5;
         playerScript.SkillIncreaseScreen(false);
+        playerScript.ResumeGame();
     }
 
     public void FirerateButton()
@@ -49,11 +50,13 @@ public class GeneralController : MonoBehaviour
         {
             playerScript.timeBetweenShots = 0.1f;
         }
+        playerScript.ResumeGame();
     }
 
     public void MaxhealthButton()
     {
         playerScript.maxHealth += 10;
         playerScript.SkillIncreaseScreen(false);
+        playerScript.ResumeGame();
     }
 }
