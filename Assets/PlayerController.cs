@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -73,13 +74,18 @@ public class PlayerController : MonoBehaviour
     {
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
     void LevelUp()
     {
         level++;
         currentXP -= requiredXP;
-        requiredXP += (int)(requiredXP / 2);
+        requiredXP *= 1.4f;
         SkillIncreaseScreen(true);
     }
 
@@ -100,5 +106,10 @@ public class PlayerController : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1;
+    }
+
+    void Die()
+    {
+        SceneManager.LoadScene("End");
     }
 }
