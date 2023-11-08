@@ -164,8 +164,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   maxHealth: 100
+  xpValue: 1
   healthBar: {fileID: 3701402064870148949}
   healthBarObject: {fileID: 765510470570426654}
+  maxSpeed: 10
+  avoidanceForceMultiplier: 5
+  raySpacing: 0.5
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &765510470570426654
 GameObject:
   m_ObjectHideFlags: 0

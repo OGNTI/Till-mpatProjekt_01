@@ -17,9 +17,16 @@ public class EnemyController : MonoBehaviour
 
     GameObject player;
     PlayerController playerScript;
+    Rigidbody2D enemyRigid;
+
+    public float maxSpeed = 10f;
+    public float avoidanceForceMultiplier = 5f;
+    public float raySpacing = 0.5f;
+    public LayerMask obstacleLayerMask;
 
     void Awake()
     {
+        enemyRigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         currentHealth = maxHealth;
@@ -31,7 +38,9 @@ public class EnemyController : MonoBehaviour
         float step = speed * Time.deltaTime;
 
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
+
     }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
