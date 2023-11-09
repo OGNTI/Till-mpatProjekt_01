@@ -47,6 +47,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(moveX, moveY, 0).normalized * walkSpeed;
 
+        if (transform.position.y >= Camera.main.orthographicSize || transform.position.y <= -Camera.main.orthographicSize)
+        {
+            movement.y *= -1;
+        }
+        else if (transform.position.x >= Camera.main.orthographicSize * Screen.width / Screen.height || transform.position.x <= -Camera.main.orthographicSize * Screen.width / Screen.height)
+        {
+            movement.x *= -1;
+        }
+
         transform.position += movement; //Translate does local position, this does global
 
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
@@ -61,6 +70,7 @@ public class PlayerController : MonoBehaviour
             Instantiate(bulletPrefab, gunBarrelPos.position, transform.rotation);
             shotTimer = 0;
         }
+
 
         if (currentXP >= requiredXP)
         {

@@ -36,7 +36,6 @@ public class EnemyController : MonoBehaviour
             damage *= 1.1f;
             maxHealth *= 1.1f;
             xpValue *= 1.1f;
-            Debug.Log(xpValue);
         }
 
         currentHealth = maxHealth;
@@ -51,10 +50,6 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        // Old movement
-        // float step = speed * Time.deltaTime;
-        // transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
-
         // NavMesh movement
         agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z));
     }
