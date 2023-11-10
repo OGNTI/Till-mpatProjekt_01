@@ -133,4 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f09d0cbfc0800b49a24b4a4ecf7027d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthValue: 25
+  healthValue: 10

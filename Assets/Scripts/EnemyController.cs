@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] int maxSpeed;
     [SerializeField] float damage;
     [SerializeField] float maxHealth;
     float currentHealth;
-    int maxSpeed = 5;
 
 
     [SerializeField] float xpValue;

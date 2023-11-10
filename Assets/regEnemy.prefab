@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  maxSpeed: 5
   damage: 10
   maxHealth: 80
   xpValue: 1

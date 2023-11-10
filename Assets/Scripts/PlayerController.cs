@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public int kills = 0;
     public int level = 0;
-    float requiredXP = 2;
+    float requiredXP = 1;
     public float currentXP = 0;
     public int Damage = 20;
 
@@ -102,6 +102,11 @@ public class PlayerController : MonoBehaviour
             healthScript = other.GetComponent<HealthBallController>();
             currentHealth += healthScript.healthValue;
             GameObject.Destroy(other.gameObject);
+
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
         }
     }
 
