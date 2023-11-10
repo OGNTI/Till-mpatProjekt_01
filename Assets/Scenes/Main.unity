@@ -797,53 +797,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &529467773
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 529467775}
-  - component: {fileID: 529467774}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &529467774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 529467773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff9a0109900aa004a874bbfd0a70302f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenSpawns: 1.2
-  playerPos: {fileID: 357706244}
-  enemyPrefab: {fileID: 426582937544339576, guid: cc35d7ac402e1464a80f6c724c8d2cbc, type: 3}
---- !u!4 &529467775
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 529467773}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &530116755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,8 +1972,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1431493518}
   - component: {fileID: 1431493517}
+  - component: {fileID: 1431493519}
   m_Layer: 0
-  m_Name: shit
+  m_Name: shit happens here
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2049,12 +2003,28 @@ Transform:
   m_GameObject: {fileID: 1431493516}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12190054, y: -0.093841076, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1431493519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431493516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9a0109900aa004a874bbfd0a70302f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenSpawns: 0.8
+  playerPos: {fileID: 357706244}
+  regEnemyPrefab: {fileID: 426582937544339576, guid: cc35d7ac402e1464a80f6c724c8d2cbc, type: 3}
+  bigEnemyPrefab: {fileID: 7861017995352745957, guid: a750d34f63812934eb57412e8bc66a8a, type: 3}
 --- !u!1 &1696907049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,7 +2779,6 @@ SceneRoots:
   - {fileID: 5678844147734059618}
   - {fileID: 798040234}
   - {fileID: 1976796185}
-  - {fileID: 529467775}
   - {fileID: 1696907052}
   - {fileID: 1431493518}
   - {fileID: 1783905405}
