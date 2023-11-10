@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] float speed = 4;
-    [SerializeField] float damage = 10;
-    [SerializeField] float maxHealth = 100;
+    [SerializeField] float speed;
+    [SerializeField] float damage;
+    [SerializeField] float maxHealth;
     float currentHealth;
+    int maxSpeed = 5;
 
 
-    [SerializeField] float xpValue = 1;
+    [SerializeField] float xpValue;
 
     [SerializeField] Slider healthBar;
     [SerializeField] GameObject healthBarObject;
@@ -32,10 +33,15 @@ public class EnemyController : MonoBehaviour
         //Increase stats depending on player level
         for (int i = 0; i < playerScript.level; i++)
         {
-            speed *= 1.1f;
-            damage *= 1.1f;
+            speed *= 1.05f;
+            damage *= 1.05f;
             maxHealth *= 1.1f;
             xpValue *= 1.1f;
+        }
+
+        if (speed > maxSpeed)
+        {
+            speed = maxSpeed;
         }
 
         currentHealth = maxHealth;

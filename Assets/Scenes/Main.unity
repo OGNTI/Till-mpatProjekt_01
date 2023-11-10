@@ -564,11 +564,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!4 &357706244 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5729539141301589862, guid: c7672b213faa1a74fb463dc45a3cd0ca, type: 3}
-  m_PrefabInstance: {fileID: 5678844147734059618}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &475442094
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +820,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 21.4, y: 12, z: 1}
+  m_LocalScale: {x: 22.5, y: 13, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1783905405}
@@ -872,7 +867,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.37985045, g: 0.6226415, b: 0.39123127, a: 1}
+  m_Color: {r: 0.4708081, g: 0.6509434, b: 0.4795243, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1197,7 +1192,7 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: 3d016e17313f8014dacaada982fc425d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2f223ccea015c9a41910d40b2ea2ff36, type: 2}
 --- !u!4 &876706893
 Transform:
   m_ObjectHideFlags: 0
@@ -1992,6 +1987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0679e338ba7234ba9106c19c9eaf56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBetweenHealth: 10
+  healthPrefab: {fileID: 4712536166736431897, guid: 52b3897fe81530e44b56b6bd1bec6f35, type: 3}
   killsDisplay: {fileID: 475442096}
   levelDisplay: {fileID: 2126640744}
 --- !u!4 &1431493518
@@ -2021,8 +2018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a0109900aa004a874bbfd0a70302f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenSpawns: 0.8
-  playerPos: {fileID: 357706244}
+  timeBetweenSpawns: 3
+  player: {fileID: 1962871254}
   regEnemyPrefab: {fileID: 426582937544339576, guid: cc35d7ac402e1464a80f6c724c8d2cbc, type: 3}
   bigEnemyPrefab: {fileID: 7861017995352745957, guid: a750d34f63812934eb57412e8bc66a8a, type: 3}
 --- !u!1 &1696907049
@@ -2425,6 +2422,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945401589}
   m_CullTransparentMesh: 1
+--- !u!1 &1962871254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5716925678655226555, guid: c7672b213faa1a74fb463dc45a3cd0ca, type: 3}
+  m_PrefabInstance: {fileID: 5678844147734059618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1976796181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,6 +2759,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7172874630637717622, guid: c7672b213faa1a74fb463dc45a3cd0ca, type: 3}
+      propertyPath: eventThing
+      value: 
+      objectReference: {fileID: 1431493516}
     - target: {fileID: 7172874630637717622, guid: c7672b213faa1a74fb463dc45a3cd0ca, type: 3}
       propertyPath: skillScreen
       value: 

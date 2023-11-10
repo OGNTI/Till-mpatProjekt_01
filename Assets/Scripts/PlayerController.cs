@@ -10,13 +10,18 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 5;
-    
+
     [SerializeField] Transform gunBarrelPos;
     [SerializeField] GameObject bulletPrefab;
 
     [SerializeField] Slider healthBar;
 
     GameObject skillScreen;
+
+    [SerializeField] GameObject eventThing;
+    EnemySpawnController spawnScript;
+
+    HealthBallController healthScript;
 
     public float timeBetweenShots = 1;
     float shotTimer;
@@ -35,6 +40,8 @@ public class PlayerController : MonoBehaviour
         skillScreen = GameObject.FindGameObjectWithTag("SkillScreen");
         SkillIncreaseScreen(false);
         currentHealth = maxHealth;
+
+        spawnScript = eventThing.GetComponent<EnemySpawnController>();
     }
 
     void Update()
@@ -46,17 +53,25 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(moveX, moveY, 0).normalized * walkSpeed;
-
-        if (transform.position.y >= Camera.main.orthographicSize || transform.position.y <= -Camera.main.orthographicSize)
-        {
-            movement.y *= -1;
-        }
-        else if (transform.position.x >= Camera.main.orthographicSize * Screen.width / Screen.height || transform.position.x <= -Camera.main.orthographicSize * Screen.width / Screen.height)
-        {
-            movement.x *= -1;
-        }
-
         transform.position += movement; //Translate does local position, this does global
+
+        if (transform.position.y >= Camera.main.orthographicSize)
+        {
+            transform.position = new Vector3(transform.position.x, Camera.main.orthographicSize, 0);
+        }
+        else if (transform.position.y <= -Camera.main.orthographicSize)
+        {
+            transform.position = new Vector3(transform.position.x, -Camera.main.orthographicSize, 0);
+        }
+        if (transform.position.x >= Camera.main.orthographicSize * Screen.width / Screen.height)
+        {
+            transform.position = new Vector3(Camera.main.orthographicSize * Screen.width / Screen.height, transform.position.y, 0);
+        }
+        else if (transform.position.x <= -Camera.main.orthographicSize * Screen.width / Screen.height)
+        {
+            transform.position = new Vector3(-Camera.main.orthographicSize * Screen.width / Screen.height, transform.position.y, 0);
+        }
+
 
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -80,6 +95,16 @@ public class PlayerController : MonoBehaviour
         UpdateHealthBar();
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "HealthBall")
+        {
+            healthScript = other.GetComponent<HealthBallController>();
+            currentHealth += healthScript.healthValue;
+            GameObject.Destroy(other.gameObject);
+        }
+    }
+
     void UpdateHealthBar()
     {
         healthBar.maxValue = maxHealth;
@@ -96,6 +121,7 @@ public class PlayerController : MonoBehaviour
         level++;
         currentXP -= requiredXP;
         requiredXP *= 1.4f;
+        spawnScript.timeBetweenSpawns *= 0.9f;
         SkillIncreaseScreen(true);
     }
 

@@ -6,18 +6,23 @@ using UnityEngine;
 
 public class EnemySpawnController : MonoBehaviour
 {
-    [SerializeField] float timeBetweenSpawns = 0.7f;
+    public float timeBetweenSpawns;
     float timer;
 
-    [SerializeField] Transform playerPos;
+    [SerializeField] GameObject player;
+    PlayerController playerScript;
 
     [SerializeField] GameObject regEnemyPrefab;
     [SerializeField] GameObject bigEnemyPrefab;
     GameObject enemyPrefab;
 
-    Vector3[] spawns = {new Vector3(11.2f, 5, 0), new Vector3(11.2f, -5, 0), new Vector3(-11.2f, 5, 0), new Vector3(-11.2f, -5, 0)};
+    Vector3[] spawns = { new Vector3(11.2f, 5, 0), new Vector3(11.2f, -5, 0), new Vector3(-11.2f, 5, 0), new Vector3(-11.2f, -5, 0) };
     Vector3 location;
 
+    void Start()
+    {
+        playerScript = player.GetComponent<PlayerController>();
+    }
 
     void Update()
     {
@@ -25,7 +30,7 @@ public class EnemySpawnController : MonoBehaviour
         if (timer > timeBetweenSpawns)
         {
             int a = UnityEngine.Random.Range(0, 4);
-            if (a == 0)
+            if (a == 0 && playerScript.level >= 2)
             {
                 enemyPrefab = bigEnemyPrefab;
             }
@@ -36,9 +41,9 @@ public class EnemySpawnController : MonoBehaviour
 
             int b = UnityEngine.Random.Range(0, spawns.Length);
             location = spawns[b];
-            if (Vector3.Distance(location, playerPos.position) <= 7) //If too close to spawn location, don't spawn
+            if (Vector3.Distance(location, player.transform.position) <= 7) //If too close to spawn location, don't spawn
             {
-                
+
             }
             else
             {
