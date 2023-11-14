@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     HealthBallController healthScript;
 
+    GeneralController generalScript;
+
     public float timeBetweenShots = 1;
     float shotTimer;
 
@@ -37,11 +39,10 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        skillScreen = GameObject.FindGameObjectWithTag("SkillScreen");
-        SkillIncreaseScreen(false);
         currentHealth = maxHealth;
 
         spawnScript = eventThing.GetComponent<EnemySpawnController>();
+        generalScript = eventThing.GetComponent<GeneralController>();
     }
 
     void Update()
@@ -127,26 +128,14 @@ public class PlayerController : MonoBehaviour
         currentXP -= requiredXP;
         requiredXP *= 1.4f;
         spawnScript.timeBetweenSpawns *= 0.9f;
-        SkillIncreaseScreen(true);
-    }
-
-    public void SkillIncreaseScreen(bool gae)
-    {
-        skillScreen.SetActive(gae);
-        if (gae == true)
+        if (level == 1)
         {
-            PauseGame();
+            generalScript.CreateSkillScreen();
         }
-    }
-
-    public void PauseGame()
-    {
-        Time.timeScale = 0;
-    }
-
-    public void ResumeGame()
-    {
-        Time.timeScale = 1;
+        else
+        {
+            generalScript.ShowSkillScreen();
+        }
     }
 
     void Die()
