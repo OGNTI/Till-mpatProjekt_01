@@ -83,7 +83,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            playerScript.currentHealth -= damage;
+            playerScript.CurrentHealth -= damage;
             Killed();
         }
     }

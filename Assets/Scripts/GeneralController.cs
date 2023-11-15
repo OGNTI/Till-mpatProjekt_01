@@ -18,9 +18,9 @@ public class GeneralController : MonoBehaviour
     [SerializeField] GameObject skillScreenPrefab;
     GameObject skillScreen;
     GameObject skillCanvas;
-    Button Damage;
-    Button Firerate;
-    Button MaxHealth;
+    Button damageButton;
+    Button firerateButton;
+    Button maxHealthButton;
 
     [SerializeField] TMP_Text killsDisplay;
     string killsAmount;
@@ -59,11 +59,13 @@ public class GeneralController : MonoBehaviour
         skillScreen.transform.localScale = new UnityEngine.Vector3(1, 1, 1);
         PauseGame();
 
-        GameObject DB = GameObject.FindGameObjectWithTag("DamageButton");
-        GameObject FB = GameObject.FindGameObjectWithTag("FirerateButton");
-        GameObject HB = GameObject.FindGameObjectWithTag("MaxHealthButton");
+        damageButton = GameObject.FindGameObjectWithTag("DamageButton").GetComponent<Button>();
+        firerateButton = GameObject.FindGameObjectWithTag("FirerateButton").GetComponent<Button>();
+        maxHealthButton = GameObject.FindGameObjectWithTag("MaxHealthButton").GetComponent<Button>();
 
-        //set damage, firerate to the component button in ^^
+        damageButton.onClick.AddListener(IncreaseDamage);
+        firerateButton.onClick.AddListener(IncreaseFirerate);
+        maxHealthButton.onClick.AddListener(IncreaseMaxHealth);
     }
 
     public void ShowSkillScreen()
@@ -72,25 +74,25 @@ public class GeneralController : MonoBehaviour
         PauseGame();
     }
 
-    public void DamageButton()
+    public void IncreaseDamage()
     {
         playerScript.Damage += 5;
         skillCanvas.SetActive(false);
         ResumeGame();
     }
 
-    public void FirerateButton()
+    public void IncreaseFirerate()
     {
-        playerScript.timeBetweenShots -= 0.2f;
-        if (playerScript.timeBetweenShots <= 0.1f)
+        playerScript.timeBetweenShots *= 0.8f;
+        if (playerScript.timeBetweenShots <= 0.01f)
         {
-            playerScript.timeBetweenShots = 0.1f;
+            playerScript.timeBetweenShots = 0.01f;
         }
         skillCanvas.SetActive(false);
         ResumeGame();
     }
 
-    public void MaxHealthButton()
+    public void IncreaseMaxHealth()
     {
         playerScript.maxHealth += 10;
         skillCanvas.SetActive(false);

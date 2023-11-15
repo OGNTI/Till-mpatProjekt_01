@@ -9,6 +9,10 @@ TagManager:
   - Enemy
   - SkillScreen
   - HealthBall
+  - SkillCanvas
+  - DamageButton
+  - FirerateButton
+  - MaxHealthButton
   layers:
   - Default
   - TransparentFX

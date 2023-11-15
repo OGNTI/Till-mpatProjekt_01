@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Slider healthBar;
 
-    GameObject skillScreen;
-
     [SerializeField] GameObject eventThing;
     EnemySpawnController spawnScript;
 
@@ -29,24 +27,55 @@ public class PlayerController : MonoBehaviour
     float shotTimer;
 
     public float maxHealth = 100;
-    public float currentHealth = 0;
+    float _currentHealth = 0;
+    public float CurrentHealth
+    {
+        get
+        {
+            return _currentHealth;
+        }
+        set
+        {
+            _currentHealth = value;
+            if (_currentHealth < 0) _currentHealth = 0;
+            if (_currentHealth > maxHealth) _currentHealth = maxHealth;
+            
+        }
+    }
 
     public int kills = 0;
     public int level = 0;
     float requiredXP = 1;
     public float currentXP = 0;
     public int Damage = 20;
+    
+    static int savedKills;
+    static int savedLevel;
+
 
     void Awake()
     {
-        currentHealth = maxHealth;
-
         spawnScript = eventThing.GetComponent<EnemySpawnController>();
         generalScript = eventThing.GetComponent<GeneralController>();
+
+        generalScript.ResumeGame();
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Main")
+        {
+            CurrentHealth = maxHealth;
+        }
+		else if (currentScene.name == "Map2")
+        {
+            kills = savedKills;
+            level = savedLevel; 
+            //save all stats like this ^^^^^^^ and in SaveStats(), explore the meanign of static
+        }
     }
 
     void Update()
     {
+
         float walkSpeed = speed * Time.deltaTime;
         float rotationSpeed = speed * 2 * Time.deltaTime;
 
@@ -87,13 +116,13 @@ public class PlayerController : MonoBehaviour
             shotTimer = 0;
         }
 
-
         if (currentXP >= requiredXP)
         {
             LevelUp();
         }
 
         UpdateHealthBar();
+        CheckLevel();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -101,22 +130,17 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "HealthBall")
         {
             healthScript = other.GetComponent<HealthBallController>();
-            currentHealth += healthScript.healthValue;
+            CurrentHealth += healthScript.healthValue;
             GameObject.Destroy(other.gameObject);
-
-            if (currentHealth > maxHealth)
-            {
-                currentHealth = maxHealth;
-            }
         }
     }
 
     void UpdateHealthBar()
     {
         healthBar.maxValue = maxHealth;
-        healthBar.value = currentHealth;
+        healthBar.value = CurrentHealth;
 
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -141,5 +165,20 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         SceneManager.LoadScene("End");
+    }
+
+    void CheckLevel()
+    {
+        if (level == 10)
+        {
+            SaveStats();
+            SceneManager.LoadScene("Map2");
+        }
+    }
+
+    void SaveStats()
+    {
+        savedKills = kills;
+        savedLevel = level;
     }
 }
