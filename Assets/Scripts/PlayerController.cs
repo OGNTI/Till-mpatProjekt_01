@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             _currentHealth = value;
             if (_currentHealth < 0) _currentHealth = 0;
             if (_currentHealth > maxHealth) _currentHealth = maxHealth;
-            
+
         }
     }
 
@@ -47,10 +47,19 @@ public class PlayerController : MonoBehaviour
     public int level = 0;
     float requiredXP = 1;
     public float currentXP = 0;
-    public int Damage = 20;
-    
+    public int damage = 20;
+
+    Scene currentScene;
+
     static int savedKills;
     static int savedLevel;
+    static float savedRequiredXP;
+    static float savedCurrentXP;
+    static int savedDamage;
+    static float savedFirerate;
+    static float savedMaxHealth;
+    static float savedCurrentHealth;
+
 
 
     void Awake()
@@ -60,16 +69,14 @@ public class PlayerController : MonoBehaviour
 
         generalScript.ResumeGame();
 
-        Scene currentScene = SceneManager.GetActiveScene();
+        currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "Main")
         {
             CurrentHealth = maxHealth;
         }
-		else if (currentScene.name == "Map2")
+        else if (currentScene.name == "Map2")
         {
-            kills = savedKills;
-            level = savedLevel; 
-            //save all stats like this ^^^^^^^ and in SaveStats(), explore the meanign of static
+            LoadStats();
         }
     }
 
@@ -151,7 +158,7 @@ public class PlayerController : MonoBehaviour
         level++;
         currentXP -= requiredXP;
         requiredXP *= 1.4f;
-        spawnScript.timeBetweenSpawns *= 0.9f;
+        spawnScript.timeBetweenSpawns *= 0.95f; 
         if (level == 1)
         {
             generalScript.CreateSkillScreen();
@@ -169,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckLevel()
     {
-        if (level == 10)
+        if (currentScene.name == "Main" && level == 10)
         {
             SaveStats();
             SceneManager.LoadScene("Map2");
@@ -180,5 +187,23 @@ public class PlayerController : MonoBehaviour
     {
         savedKills = kills;
         savedLevel = level;
+        savedRequiredXP = requiredXP;
+        savedCurrentXP = currentXP;
+        savedDamage = damage;
+        savedFirerate = timeBetweenShots;
+        savedMaxHealth = maxHealth;
+        savedCurrentHealth = CurrentHealth;
+    }
+
+    void LoadStats()
+    {
+        kills = savedKills;
+        level = savedLevel;
+        requiredXP = savedRequiredXP;
+        currentXP = savedCurrentXP;
+        damage = savedDamage;
+        timeBetweenShots = savedFirerate;
+        maxHealth = savedMaxHealth;
+        CurrentHealth = savedCurrentHealth;
     }
 }

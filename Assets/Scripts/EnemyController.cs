@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
@@ -52,6 +53,12 @@ public class EnemyController : MonoBehaviour
         agent.updateRotation = false; //stay 2D
         agent.updateUpAxis = false; //stay 2D
         agent.speed = speed;
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Map2")
+        {
+            xpValue *= 2;
+        }
     }
 
     void Update()
@@ -69,7 +76,7 @@ public class EnemyController : MonoBehaviour
             {
                 healthBarObject.SetActive(true);
             }
-            currentHealth -= playerScript.Damage;
+            currentHealth -= playerScript.damage;
             UpdateHealthBar();
 
             if (currentHealth <= 0)

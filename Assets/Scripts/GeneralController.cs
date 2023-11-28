@@ -76,7 +76,7 @@ public class GeneralController : MonoBehaviour
 
     public void IncreaseDamage()
     {
-        playerScript.Damage += 5;
+        playerScript.damage += 5;
         skillCanvas.SetActive(false);
         ResumeGame();
     }

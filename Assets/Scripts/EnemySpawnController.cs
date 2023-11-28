@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawnController : MonoBehaviour
 {
     public float timeBetweenSpawns;
     float timer;
+
+    int bigEnemyChance = 1;
 
     [SerializeField] GameObject player;
     PlayerController playerScript;
@@ -22,6 +25,12 @@ public class EnemySpawnController : MonoBehaviour
     void Start()
     {
         playerScript = player.GetComponent<PlayerController>();
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Map2")
+        {
+            bigEnemyChance += 3;
+        }
     }
 
     void Update()
@@ -29,8 +38,8 @@ public class EnemySpawnController : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > timeBetweenSpawns)
         {
-            int a = UnityEngine.Random.Range(0, 4);
-            if (a == 0 && playerScript.level >= 2)
+            int a = UnityEngine.Random.Range(0, 10);
+            if (a <= bigEnemyChance && playerScript.level >= 3)
             {
                 enemyPrefab = bigEnemyPrefab;
             }
