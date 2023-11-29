@@ -14,7 +14,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float maxHealth;
     float currentHealth;
 
-
     [SerializeField] float xpValue;
 
     [SerializeField] Slider healthBar;
@@ -36,7 +35,7 @@ public class EnemyController : MonoBehaviour
         {
             speed *= 1.05f;
             damage *= 1.05f;
-            maxHealth *= 1.1f;
+            maxHealth *= 1.05f;
             xpValue *= 1.1f;
         }
 

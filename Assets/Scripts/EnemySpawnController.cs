@@ -30,6 +30,7 @@ public class EnemySpawnController : MonoBehaviour
         if (currentScene.name == "Map2")
         {
             bigEnemyChance += 3;
+            timeBetweenSpawns *= 0.65f;
         }
     }
 
@@ -50,7 +51,7 @@ public class EnemySpawnController : MonoBehaviour
 
             int b = UnityEngine.Random.Range(0, spawns.Length);
             location = spawns[b];
-            if (Vector3.Distance(location, player.transform.position) <= 7) //If too close to spawn location, don't spawn
+            if (Vector3.Distance(location, player.transform.position) <= 8) //If too close to spawn location, don't spawn
             {
 
             }

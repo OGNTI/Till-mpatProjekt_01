@@ -23,7 +23,20 @@ public class PlayerController : MonoBehaviour
 
     GeneralController generalScript;
 
-    public float timeBetweenShots = 1;
+    float _timeBetweenShots = 1;
+    public float TimeBetweenShots
+    {
+        get
+        {
+            return _timeBetweenShots;
+        }
+        set
+        {
+            _timeBetweenShots = value;
+
+            if (_timeBetweenShots <= 0.01f) _timeBetweenShots = 0.01f;
+        }
+    }
     float shotTimer;
 
     public float maxHealth = 100;
@@ -61,7 +74,6 @@ public class PlayerController : MonoBehaviour
     static float savedCurrentHealth;
 
 
-
     void Awake()
     {
         spawnScript = eventThing.GetComponent<EnemySpawnController>();
@@ -82,7 +94,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         float walkSpeed = speed * Time.deltaTime;
         float rotationSpeed = speed * 2 * Time.deltaTime;
 
@@ -92,6 +103,7 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveX, moveY, 0).normalized * walkSpeed;
         transform.position += movement; //Translate does local position, this does global
 
+        //Keep player inside camera
         if (transform.position.y >= Camera.main.orthographicSize)
         {
             transform.position = new Vector3(transform.position.x, Camera.main.orthographicSize, 0);
@@ -109,15 +121,14 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(-Camera.main.orthographicSize * Screen.width / Screen.height, transform.position.y, 0);
         }
 
-
+        //Rotate player towards mouse
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed);
 
         shotTimer += Time.deltaTime;
-
-        if (Input.GetAxisRaw("Fire1") > 0 && shotTimer > timeBetweenShots)
+        if (Input.GetAxisRaw("Fire1") > 0 && shotTimer > TimeBetweenShots)
         {
             Instantiate(bulletPrefab, gunBarrelPos.position, transform.rotation);
             shotTimer = 0;
@@ -129,7 +140,6 @@ public class PlayerController : MonoBehaviour
         }
 
         UpdateHealthBar();
-        CheckLevel();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -158,8 +168,8 @@ public class PlayerController : MonoBehaviour
         level++;
         currentXP -= requiredXP;
         requiredXP *= 1.4f;
-        spawnScript.timeBetweenSpawns *= 0.95f; 
-        if (level == 1)
+        spawnScript.timeBetweenSpawns *= 0.95f;
+        if (level == 1 || level == 11)
         {
             generalScript.CreateSkillScreen();
         }
@@ -174,7 +184,7 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene("End");
     }
 
-    void CheckLevel()
+    public void CheckLevel()
     {
         if (currentScene.name == "Main" && level == 10)
         {
@@ -190,7 +200,7 @@ public class PlayerController : MonoBehaviour
         savedRequiredXP = requiredXP;
         savedCurrentXP = currentXP;
         savedDamage = damage;
-        savedFirerate = timeBetweenShots;
+        savedFirerate = TimeBetweenShots;
         savedMaxHealth = maxHealth;
         savedCurrentHealth = CurrentHealth;
     }
@@ -202,7 +212,7 @@ public class PlayerController : MonoBehaviour
         requiredXP = savedRequiredXP;
         currentXP = savedCurrentXP;
         damage = savedDamage;
-        timeBetweenShots = savedFirerate;
+        TimeBetweenShots = savedFirerate;
         maxHealth = savedMaxHealth;
         CurrentHealth = savedCurrentHealth;
     }
