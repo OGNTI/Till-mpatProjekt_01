@@ -130,7 +130,8 @@ public class PlayerController : MonoBehaviour
         shotTimer += Time.deltaTime;
         if (Input.GetAxisRaw("Fire1") > 0 && shotTimer > TimeBetweenShots)
         {
-            Instantiate(bulletPrefab, gunBarrelPos.position, transform.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, gunBarrelPos.position, transform.rotation);
+            Destroy(bullet, 3.5f);
             shotTimer = 0;
         }
 
